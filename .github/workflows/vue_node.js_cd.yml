@@ -28,9 +28,14 @@ jobs:
            username: ${{ secrets.CHAT_USERNAME_CLIENT }}
            key: ${{ secrets.CHAT_KEY_CLIENT }}
            port: 22
-           all_envs: true 
+           envs: VUE_APP_URL,VUE_APP_KEY_STORAGE,VUE_APP_SECRET_KEY
            script: |
              cd /var/www/html/vue_app/chat_client/
+             sudo touch .env
+              echo VUE_APP_URL=$VUE_APP_URL > .env
+              echo VUE_APP_KEY_STORAGE=$VUE_APP_KEY_STORAGE > .env
+              echo VUE_APP_SECRET_KEY=$VUE_APP_SECRET_KEY > .env
+              sudo cat .env
              sudo rm -rf .env.development.local
              sudo rm -rf .env.production.local
              sudo git pull origin main
