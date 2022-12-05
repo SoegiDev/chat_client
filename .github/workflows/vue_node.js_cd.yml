@@ -16,6 +16,10 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
+    env:
+        VUE_APP_URL: ${{ secrets.VUE_BASE_URL}}
+        VUE_APP_KEY_STORAGE: ${{ secrets.VUE_STORAGE }}
+        VUE_APP_SECRET_KEY: ${{ secrets. VUE_KEY}}
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - name: Deploy using ssh
