@@ -29,5 +29,5 @@ jobs:
              cd /var/www/html/vue_app/chat_client/
              sudo git pull origin main
              sudo git status
-             sudo npm install --only=production
+             sudo npm install
              sudo npm run build
