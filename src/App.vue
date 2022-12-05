@@ -2,7 +2,7 @@
   <div id="app">
       <div>
         <h3>TEST.</h3>
-        <p>What is the sum of the two numbers? Fajar</p>
+        <p>What is the sum of the two numbers? Fajar Soegi</p>
         <div class="inline">
           <p>{{ x1 }} + {{ x2 }} =</p> <input v-model="guess"> <button v-on:click="check">Check Answer</button>
         </div>
