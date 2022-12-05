@@ -2,9 +2,9 @@ export let VUE_URL = null
 export let VUE_KEY_STORAGE = null
 export let VUE_SECRET = null
 if (process.env.NODE_ENV === 'production'){
-    VUE_URL = import.meta.env.VUE_APP_URL
-    VUE_KEY_STORAGE = import.meta.env.VUE_APP_KEY_STORAGE
-    VUE_SECRET = import.meta.env.VUE_APP_SECRET_KEY
+    VUE_URL = process.env.VUE_APP_URL
+    VUE_KEY_STORAGE = process.env.VUE_APP_KEY_STORAGE
+    VUE_SECRET = process.env.VUE_APP_SECRET_KEY
 }else{
     VUE_URL = process.env.VUE_APP_URL
     VUE_KEY_STORAGE = process.env.VUE_APP_KEY_STORAGE
