@@ -72,6 +72,7 @@ export default{
     function CancelImageUpload(){
         preview.value = false
         attachInput.value.target.value = null
+        image.value = null
     }
     function previewImage(event) {
       attachInput.value = event;
