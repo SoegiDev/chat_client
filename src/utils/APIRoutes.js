@@ -1,4 +1,5 @@
-export const host = `${process.env.BASE_URL}`;
+const URL = process.env.BASE_URL
+export const host = `${URL}`;
 export const loginRoute = `${host}/api/auth/login`;
 export const registerRoute = `${host}/api/auth/register`;
 export const logoutRoute = `${host}/api/auth/logout`;
