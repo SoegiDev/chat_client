@@ -38,7 +38,7 @@ import { reactive,onBeforeMount, onMounted } from 'vue';
 import { inject } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router'
-import {loginRoute} from '../utils/APIRoutes';
+import {loginRoute,VUE_KEY_STORAGE} from '../utils/APIRoutes';
 import UsernameField from "@/components/UsernameField";
 import PasswordField from "@/components/PasswordField";
 import useFormValidation from "@/modules/useFormValidation";
@@ -57,11 +57,11 @@ export default{
             console.log("Before mount");
             });
         onMounted(() => {
-            if (localStorage.getItem(process.env.VUE_APP_KEY_STORAGE)) {
+            if (localStorage.getItem(VUE_KEY_STORAGE)) {
                 router.push({name:'chat_home'})
                 router.go
             }
-            console.log("Mounted");  
+            console.log("Mounted",VUE_KEY_STORAGE,loginRoute);  
         });
         const register_form =  () => {
             router.push({ path: '/register' });
@@ -79,7 +79,7 @@ export default{
                             }
                         if (response.data.status === true) {
                             console.log(response.data.user)
-                            localStorage.setItem(process.env.VUE_APP_KEY_STORAGE,JSON.stringify(response.data.user));
+                            localStorage.setItem(VUE_KEY_STORAGE,JSON.stringify(response.data.user));
                             router.push({'name':'chat_home'});
                             }
                     })
