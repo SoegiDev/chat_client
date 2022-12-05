@@ -18,14 +18,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-        - name: Install dependencies
-          run: npm ci
+        - name: Deploy using ssh
+          uses: appleboy/ssh-action@master
           env:
               VUE_APP_URL: ${{ secrets.VUE_BASE_URL}}
               VUE_APP_KEY_STORAGE: ${{ secrets.VUE_STORAGE }}
               VUE_APP_SECRET_KEY: ${{ secrets.VUE_KEY }}
-        - name: Deploy using ssh
-          uses: appleboy/ssh-action@master
           with:
            host: ${{ secrets.CHAT_HOST_CLIENT }}
            username: ${{ secrets.CHAT_USERNAME_CLIENT }}
