@@ -31,6 +31,8 @@ jobs:
            port: 22
            script: |
              cd /var/www/html/vue_app/chat_client/
+             sudo rm -rf .env.development.local
+             sudo rm -rf .env.production.local
              sudo git pull origin main
              sudo git status
              sudo npm install
