@@ -21,15 +21,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - name: Deploy using ssh
-        
           uses: appleboy/ssh-action@master
           with:
            host: ${{ secrets.CHAT_HOST_CLIENT }}
            username: ${{ secrets.CHAT_USERNAME_CLIENT }}
            key: ${{ secrets.CHAT_KEY_CLIENT }}
            port: 22
-           run: |
-             echo "$VUE_APP_URL $VUE_APP_KEY_STORAGE $VUE_APP_SECRET_KEY"
+           envs: VUE_APP_URL,VUE_APP_KEY_STORAGE,VUE_APP_SECRET_KEY
            script: |
              cd /var/www/html/vue_app/chat_client/
              sudo rm -rf .env
