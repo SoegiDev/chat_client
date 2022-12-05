@@ -14,28 +14,30 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     env:
-      VUE_APP_URL: ${{ secrets.VUE_BASE_URL}}
+      VUE_APP_URL: ${{ secrets.VUE_BASE_URL }}
       VUE_APP_KEY_STORAGE: ${{ secrets.VUE_STORAGE }}
       VUE_APP_SECRET_KEY: ${{ secrets.VUE_KEY }}
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         - name: Deploy using ssh
+        
           uses: appleboy/ssh-action@master
-          
           with:
            host: ${{ secrets.CHAT_HOST_CLIENT }}
            username: ${{ secrets.CHAT_USERNAME_CLIENT }}
            key: ${{ secrets.CHAT_KEY_CLIENT }}
            port: 22
+           run: |
+             echo "$VUE_APP_URL $VUE_APP_KEY_STORAGE $VUE_APP_SECRET_KEY"
            script: |
              cd /var/www/html/vue_app/chat_client/
              sudo rm -rf .env
              sudo touch .env
              sudo chmod 777 .env
-             sudo echo VUE_APP_URL=$VUE_APP_URL >> .env
-             sudo echo VUE_APP_KEY_STORAGE=$VUE_APP_KEY_STORAGE >> .env
-             sudo echo VUE_APP_SECRET_KEY=$VUE_APP_SECRET_KEY >> .env
+             sudo echo VUE_APP_URL=$VUE_APP_URL > .env
+             sudo echo VUE_APP_KEY_STORAGE=$VUE_APP_KEY_STORAGE > .env
+             sudo echo VUE_APP_SECRET_KEY=$VUE_APP_SECRET_KEY > .env
              sudo rm -rf .env.development.local
              sudo rm -rf .env.production.local
              sudo git pull origin main
