@@ -38,6 +38,7 @@ import { reactive,onBeforeMount, onMounted } from 'vue';
 import { inject } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router'
+import {loginRoute} from '../utils/APIRoutes';
 import UsernameField from "@/components/UsernameField";
 import PasswordField from "@/components/PasswordField";
 import useFormValidation from "@/modules/useFormValidation";
@@ -68,7 +69,7 @@ export default{
         }
         const createLogin =  () => {
             try {
-                axios.post('http://localhost:5000/api/auth/login', {
+                axios.post(loginRoute, {
                     username:user.username,
                     password:user.password
                     })
