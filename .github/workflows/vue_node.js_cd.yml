@@ -32,9 +32,9 @@ jobs:
              cd /var/www/html/vue_app/chat_client/
              sudo rm -rf .env
              sudo touch .env
-              echo VUE_APP_URL=$VUE_APP_URL >> .env
-              echo VUE_APP_KEY_STORAGE=$VUE_APP_KEY_STORAGE >> .env
-              echo VUE_APP_SECRET_KEY=$VUE_APP_SECRET_KEY >> .env
+             sudo echo VUE_APP_URL=$VUE_APP_URL >> .env
+             sudo echo VUE_APP_KEY_STORAGE=$VUE_APP_KEY_STORAGE >> .env
+             sudo echo VUE_APP_SECRET_KEY=$VUE_APP_SECRET_KEY >> .env
              sudo rm -rf .env.development.local
              sudo rm -rf .env.production.local
              sudo git pull origin main
