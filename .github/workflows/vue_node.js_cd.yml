@@ -28,6 +28,7 @@ jobs:
            username: ${{ secrets.CHAT_USERNAME_CLIENT }}
            key: ${{ secrets.CHAT_KEY_CLIENT }}
            port: 22
+           all_envs: true 
            script: |
              cd /var/www/html/vue_app/chat_client/
              sudo rm -rf .env.development.local
