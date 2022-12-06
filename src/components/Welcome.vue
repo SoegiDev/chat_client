@@ -4,7 +4,8 @@
             <h3>
                 Welcome, <span>{{current_user.username}}!</span>
             </h3>
-            <h3>Please select a chat to Start messaging.</h3>
+            <h3>Silahkan tambahkan teman anda jika belum ada (Pin atau Username).</h3>
+            <h3>Please select a your friend to Start messaging.</h3>
         </div>
     </div>
 </template>

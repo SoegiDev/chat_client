@@ -1,16 +1,6 @@
-export let VUE_URL = null
-export let VUE_KEY_STORAGE = null
-export let VUE_SECRET = null
-if (process.env.NODE_ENV === 'production'){
-    VUE_URL = process.env.VUE_APP_URL
-    VUE_KEY_STORAGE = process.env.VUE_APP_KEY_STORAGE
-    VUE_SECRET = process.env.VUE_APP_SECRET_KEY
-}else{
-    VUE_URL = process.env.VUE_APP_URL
-    VUE_KEY_STORAGE = process.env.VUE_APP_KEY_STORAGE
-    VUE_SECRET = process.env.VUE_APP_SECRET_KEY
-}
-
+export const VUE_URL = process.env.VUE_APP_URL
+export const VUE_KEY_STORAGE = process.env.VUE_APP_KEY_STORAGE
+export const VUE_SECRET = process.env.VUE_APP_SECRET_KEY
 
 export const host = `${VUE_URL}`;
 export const loginRoute = `${host}/api/auth/login`;

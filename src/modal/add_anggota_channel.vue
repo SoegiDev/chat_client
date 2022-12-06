@@ -71,7 +71,7 @@
         <div class="modal-body">
           <form>
             <div class="form-group">
-              <label class="control-label">Nama Member</label>
+              <label class="control-label">Nama Member atau Pin Member</label>
                 <div>
                   <input type="text" class="form-control input-md" v-model="form_input.name">
                 </div>
