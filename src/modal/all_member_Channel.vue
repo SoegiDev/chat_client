@@ -57,7 +57,7 @@
               <div class="ms-2 me-auto">
                 <div class="fw-bold">{{u.username}}</div>
               </div>
-              <span class="badge bg-primary rounded-pill"  v-if="isAdmin===true">Admin</span>
+              <span class="badge bg-primary rounded-pill"  v-if="u.isAdmin===true">Admin</span>
             </li>
           </ol>
         </div>

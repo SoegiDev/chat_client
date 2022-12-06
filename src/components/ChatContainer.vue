@@ -17,7 +17,7 @@
               </div>
             </div>
              <span id="action_menu_btn"><i class="fas fa-ellipsis-v"></i></span>
-            <div class="action_menu" v-if="currentChat==='channel'">
+            <div class="action_menu" v-if="currentChat.type==='channel'">
               <ul>
                 <li title="Liat Member" @click="showModalListMember"><i class="fas fa-user-circle"></i> View Member</li>
                 <!-- <li><i class="fas fa-users"></i> Add to close friends</li> -->

@@ -70,7 +70,7 @@
         <div class="modal-body">
           <form>
             <div class="form-group">
-              <label class="control-label">username</label>
+              <label class="control-label">Masukkan username atau Pin Teman</label>
                 <div>
                   <input type="text" class="form-control input-md" v-model="form_input.username">
                 </div>

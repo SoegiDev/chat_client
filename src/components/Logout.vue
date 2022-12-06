@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-auto me-auto">
                       <div class="user_info_self">
-                        <span>{{current_user.username}}</span>
+                        <span>{{current_user.username}} <small>#{{current_user.pin}}</small></span>
                       </div>
                 </div>
                 <div class="col-auto">
