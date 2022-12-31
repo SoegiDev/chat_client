@@ -38,7 +38,7 @@ import Contacts from '../components/Contacts.vue';
 import ChatContainer from '../components/ChatContainer.vue';
 import Welcome from '../components/Welcome.vue';
 import axios from 'axios';
-import {allFriendsRoute,getAllChannels,updateUserConnectdisConnected,allUsersRoute,countMessageFriends,friendsMandatory,countMessageChannels} from '../utils/APIRoutes';
+import {get_user_device,logoutRoute,allFriendsRoute,getAllChannels,updateUserConnectdisConnected,allUsersRoute,countMessageFriends,friendsMandatory,countMessageChannels} from '../utils/APIRoutes';
 import socket from "../socket";
 export default {
   name:"myChat",
@@ -52,6 +52,7 @@ export default {
     let selectedUser = ref('')
     const current_user = ref(JSON);
     const router = useRouter();
+    let userGetDevice = reactive({})
     const profile=reactive({
       email:null,
       username:null,
@@ -91,7 +92,9 @@ export default {
           getCurrentUser();
     });
     function sign_out () {
+      console.log(current_user.value.devices[0]._id)
       updateStatus(current_user.value._id,false)
+      exitFromChat(current_user.value._id,current_user.value.devices[0]._id,false)
       localStorage.clear()
       router.push({ name: 'login' })
       router.go()
@@ -135,7 +138,20 @@ export default {
         return new Date(b.chatUpdatedAt) - new Date(a.chatUpdatedAt)
       })
     }
-
+    const userDevice = async () => {
+            let res = null
+            res = await axios.get(get_user_device+"/"+current_user.value._id);
+            return res;
+        };
+    
+    const newContact = async()=>{
+      await getRecords();
+      // socket.emit('new channel')
+      checkOnline()
+      friend_list.contacts.sort(function(a,b){
+        return new Date(b.chatUpdatedAt) - new Date(a.chatUpdatedAt)
+      })
+    }
     const newChannel = async()=>{
       await getFriends();
       await getChannels();
@@ -155,6 +171,11 @@ export default {
           localStorage.getItem(process.env.VUE_APP_KEY_STORAGE)
           )
         }
+
+      userGetDevice = await userDevice()
+      if(current_user.value.devices[0].device.browser !== userGetDevice.data.device[0].device.browser){
+        sign_out ()
+       }
     }
     
     const getRecords = async() => {
@@ -253,8 +274,7 @@ export default {
       }
       else{
         let check_contact = contact_list.contacts.find(el => el._id === msg.from);
-        console.log("TEMAN BARU",msg)
-        friend_list.contacts.push({
+          friend_list.contacts.push({
           _id: check_contact._id,
           username: "new _ "+check_contact.username,
           email:check_contact.email,
@@ -262,9 +282,9 @@ export default {
           avatarImage:check_contact.avatarImage,
           chatUpdatedAt:msg.createdAt,
           countMessage: 1,
+          pin:check_contact.pin,
           connected:true,
           logout:false});
-
       }
       friend_list.contacts.sort(function(a,b){
         return new Date(b.chatUpdatedAt) - new Date(a.chatUpdatedAt)
@@ -280,6 +300,10 @@ export default {
       typing.isTyping = data.status
       typing.from_typing = data.from
       typing.to_typing = data.to
+    })
+    socket.on('new friend', (data) => {
+      console.log("New Friend",data)
+      newContact()
     })
     socket.on('new friend channel', (data) => {
       newChannel()
@@ -325,6 +349,15 @@ export default {
           console.log(error)
           }
     }
+    const exitFromChat = (id,device,status) => {
+      try {
+        axios.post(logoutRoute+'/'+id+"/"+device, {status_connect:status})
+        .then(function (response) {console.log(response)})
+        .catch(function (error) {console.log(error)});
+        } catch(error) {
+          console.log(error)
+          }
+    }
 
     function connect_disconnect(id,status){
       for (let i = 0; i < friend_list.contacts.length; i++) {
@@ -342,6 +375,9 @@ export default {
       console.log("User Online saat ini",total)
       checkOnline()
     })
+    socket.on("connect_error", (err) => {
+      console.log(`connect_error due to ${err.message}`);
+    });
     return{
       connect_disconnect,
       username,
@@ -358,7 +394,11 @@ export default {
       profile,
       newFriend,
       newChannel,
-      checkOnline
+      newContact,
+      checkOnline,
+      exitFromChat,
+      userDevice,
+      userGetDevice
     }
   }
 }
