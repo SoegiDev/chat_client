@@ -45,13 +45,14 @@ import EmailField from '@/components/EmailField';
 import GenderField from '@/components/GenderField';
 import useFormValidation from "@/modules/useFormValidation";
 import useSubmitButtonState from "@/modules/useSubmitButtonState";
-import {registerRoute} from '../utils/APIRoutes';
+import {registerRoute,VUE_KEY_STORAGE,getdevice,adddevices} from '../utils/APIRoutes';
 export default{
     name:"myRegister",
     components: { UsernameField,PasswordField,EmailField,GenderField },
     setup(){
         const sweet_dialog = inject('$swal')
         const router = useRouter()
+        let device_get = reactive({})
         let user = reactive({
             username: "",
             email:"",
@@ -61,9 +62,15 @@ export default{
         onBeforeMount(() => {
             console.log("Before mount");
             });
-        onMounted(() => {
-            console.log("Mounted");  
+        onMounted(async() =>  {
+            device_get = await fetchDevice()
+            console.log("Mounted",VUE_KEY_STORAGE,registerRoute, device_get.data);  
         });
+        const fetchDevice = async () => {
+            let res = null
+            res = await axios.get(getdevice);
+            return res;
+        };
         const createRegister =  () => {
             try {
                axios.post(registerRoute,  {
@@ -78,7 +85,30 @@ export default{
                             }
                         if (response.data.status === true) {
                             console.log(response.data.user)
-                            localStorage.setItem(process.env.VUE_APP_KEY_STORAGE,JSON.stringify(response.data.user));
+                            addDevices(response.data.user._id)
+                            // localStorage.setItem(process.env.VUE_APP_KEY_STORAGE,JSON.stringify(response.data.user));
+                            // router.push({'name':'chat_home'});
+                            }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            } catch(error) {
+                console.log(error)
+            }
+        }
+        const addDevices =  (id) => {
+            try {
+                axios.post(adddevices+'/'+id, {
+                    device :device_get.data
+                    })
+                    .then(function (response) {
+                        if (response.data.status === false) {
+                            sweet_dialog(JSON.stringify(response.data.msg));
+                            }
+                        if (response.data.status === true) {
+                            console.log(response.data.user)
+                            localStorage.setItem(VUE_KEY_STORAGE,JSON.stringify(response.data.user));
                             router.push({'name':'chat_home'});
                             }
                     })
@@ -96,7 +126,9 @@ export default{
             user,
             isSignupButtonDisabled,
             router,
-            createRegister
+            createRegister,
+            device_get,
+            addDevices
         }
     }
 }

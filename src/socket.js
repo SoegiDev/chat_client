@@ -8,6 +8,7 @@ import {host} from "./utils/APIRoutes"
 
 const socket = io(host, {
   reconnectionDelayMax: 10000,
+  transports: ["websocket"],
   });
 
 socket.onAny((event, ...args) => {

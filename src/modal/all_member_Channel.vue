@@ -25,11 +25,14 @@
       });
       const getAllMember = async() => {
         let resData = await axios.get(channelAllMember+'/'+current_chat.value._id);
-        console.log(current_chat.value._id)
-        console.log("All Member",resData.data)
-        member_list._id = resData.data._id
-        member_list.name = resData.data.name
-        member_list.socket = resData.data.sockets
+        if(resData.data){
+          console.log(current_chat.value._id)
+          console.log("All Member",resData.data)
+          member_list._id = resData.data._id
+          member_list.name = resData.data.name
+          member_list.socket = resData.data.sockets
+        }
+       
       }
       return{
         closeModalListMember,

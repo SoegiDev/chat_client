@@ -6,6 +6,7 @@ export const host = `${VUE_URL}`;
 export const loginRoute = `${host}/api/auth/login`;
 export const registerRoute = `${host}/api/auth/register`;
 export const logoutRoute = `${host}/api/auth/logout`;
+export const removeDevice = `${host}/api/auth/remove_device`;
 export const updateUserConnectdisConnected = `${host}/api/auth/update_connect`;
 export const allUsersRoute = `${host}/api/auth/allusers`;
 export const allFriendsRoute = `${host}/api/auth/allfriends`;
@@ -20,6 +21,10 @@ export const addNewFriend = `${host}/api/auth/add_friend`;
 export const uploadImageAWS = `${host}/api/messages/uploadimageaws`;
 
 export const friendsMandatory = `${host}/api/auth/friendsmandatory`;
+
+export const adddevices = `${host}/api/auth/add_device`;
+export const get_user_device = `${host}/api/auth/get_device`;
+export const getdevice = `${host}/device`;
 
 // CHANNEL//
 export const getChannelMessage = `${host}/api/messages/getmsgchannel`;
