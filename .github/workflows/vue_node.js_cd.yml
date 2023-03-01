@@ -29,7 +29,7 @@ jobs:
            port: 22
            envs: VUE_APP_URL,VUE_APP_KEY_STORAGE,VUE_APP_SECRET_KEY
            script: |
-             cd /var/www/html/vue_app/chat_client/
+             cd /var/www/html/chat_client/
              rm -rf .env
              touch .env
              chmod 777 .env
