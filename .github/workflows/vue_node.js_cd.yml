@@ -30,15 +30,15 @@ jobs:
            envs: VUE_APP_URL,VUE_APP_KEY_STORAGE,VUE_APP_SECRET_KEY
            script: |
              cd /var/www/html/vue_app/chat_client/
-             sudo rm -rf .env
-             sudo touch .env
-             sudo chmod 777 .env
-             sudo echo VUE_APP_URL=$VUE_APP_URL >> .env
-             sudo echo VUE_APP_KEY_STORAGE=$VUE_APP_KEY_STORAGE >> .env
-             sudo echo VUE_APP_SECRET_KEY=$VUE_APP_SECRET_KEY >> .env
-             sudo rm -rf .env.development.local
-             sudo rm -rf .env.production.local
-             sudo git pull origin main
-             sudo git status
-             sudo npm install
-             sudo npm run build
+             rm -rf .env
+             touch .env
+             chmod 777 .env
+             echo VUE_APP_URL=$VUE_APP_URL >> .env
+             echo VUE_APP_KEY_STORAGE=$VUE_APP_KEY_STORAGE >> .env
+             echo VUE_APP_SECRET_KEY=$VUE_APP_SECRET_KEY >> .env
+             rm -rf .env.development.local
+             rm -rf .env.production.local
+             git pull origin main
+             git status
+             npm install
+             npm run build
